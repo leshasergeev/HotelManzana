@@ -8,7 +8,14 @@
 
 import UIKit
 
-class AddRegistrationTableViewController: UITableViewController {
+class AddRegistrationTableViewController: UITableViewController, SelectRoomTypeTableViewControllerDelegate {
+    
+    
+    func selectRoomTypeTableViewController(_ controller: SelectRoomTypeTableViewController, didSelect roomType: RoomType) {
+        self.roomType = roomType
+        updateRoomType()
+    }
+    
 
     
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -27,6 +34,7 @@ class AddRegistrationTableViewController: UITableViewController {
     
     @IBOutlet weak var wifiSwitch: UISwitch!
     
+    @IBOutlet weak var roomTypeLabel: UILabel!
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         let firstName           = firstNameTextField.text ?? ""
@@ -37,6 +45,7 @@ class AddRegistrationTableViewController: UITableViewController {
         let numberOfAdults      = Int(numberOfAdultsStepper.value)
         let numberOfChildren    = Int(numberOfChildrenStepper.value)
         let hasWifi             = wifiSwitch.isOn
+        let roomChoice          = roomType?.name ?? "Not Set"
         
         print("DONE BUTTON WAS TAPPED")
         print("firstName: \(firstName)")
@@ -47,6 +56,7 @@ class AddRegistrationTableViewController: UITableViewController {
         print("numberOfAdults: \(numberOfAdults)")
         print("numberOfChildren: \(numberOfChildren)")
         print("hasWifi: \(hasWifi)")
+        print("roomChoice: \(roomChoice)")
     }
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
@@ -75,6 +85,7 @@ class AddRegistrationTableViewController: UITableViewController {
         updateNumberOfGuests()
         
         updateDateViews()
+        updateRoomType()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -90,6 +101,8 @@ class AddRegistrationTableViewController: UITableViewController {
         dateFormatter.dateStyle = .medium
         return dateFormatter
     }()
+    
+    var roomType: RoomType?
     
     let checkInDatePickerCellIndexPath  = IndexPath(row: 1, section: 1)
     let checkOutDatePickerCellIndexPath = IndexPath(row: 3, section: 1)
@@ -156,5 +169,22 @@ class AddRegistrationTableViewController: UITableViewController {
         numberOfAdultsLabel.text    = "\(Int(numberOfAdultsStepper.value))"
         numberOfChildrenLabel.text  = "\(Int(numberOfChildrenStepper.value))"
     }
+    
+    private func updateRoomType() {
+        if let roomType = roomType {
+            roomTypeLabel.text = roomType.name
+        } else {
+            roomTypeLabel.text = "Not Set"
+        }
+    }
+    
+    @IBSegueAction func selectRoomType(_ coder: NSCoder) -> SelectRoomTypeTableViewController? {
+        let selectRoomTypeTableVC = SelectRoomTypeTableViewController(coder: coder)
+        selectRoomTypeTableVC?.delegate = self
+        selectRoomTypeTableVC?.roomType = roomType
+        
+        return selectRoomTypeTableVC
+    }
+    
 
 }
