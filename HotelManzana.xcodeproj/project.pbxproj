@@ -16,6 +16,7 @@
 		D93D0D6E2632E0EF00615BA1 /* RoomType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93D0D6D2632E0EF00615BA1 /* RoomType.swift */; };
 		D93D0D702632E7D500615BA1 /* AddRegistrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93D0D6F2632E7D500615BA1 /* AddRegistrationTableViewController.swift */; };
 		D93D0D722635B82D00615BA1 /* SelectRoomTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93D0D712635B82D00615BA1 /* SelectRoomTypeTableViewController.swift */; };
+		D93D0D742636BEF000615BA1 /* RegistrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93D0D732636BEF000615BA1 /* RegistrationTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		D93D0D6D2632E0EF00615BA1 /* RoomType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomType.swift; sourceTree = "<group>"; };
 		D93D0D6F2632E7D500615BA1 /* AddRegistrationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRegistrationTableViewController.swift; sourceTree = "<group>"; };
 		D93D0D712635B82D00615BA1 /* SelectRoomTypeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRoomTypeTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		D93D0D732636BEF000615BA1 /* RegistrationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTableViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		D93D0D542632E01500615BA1 /* HotelManzana */ = {
 			isa = PBXGroup;
 			children = (
+				D93D0D732636BEF000615BA1 /* RegistrationTableViewController.swift */,
 				D93D0D712635B82D00615BA1 /* SelectRoomTypeTableViewController.swift */,
 				D93D0D552632E01500615BA1 /* AppDelegate.swift */,
 				D93D0D572632E01500615BA1 /* SceneDelegate.swift */,
@@ -153,6 +156,7 @@
 				D93D0D562632E01500615BA1 /* AppDelegate.swift in Sources */,
 				D93D0D6C2632E0D100615BA1 /* Registration.swift in Sources */,
 				D93D0D582632E01500615BA1 /* SceneDelegate.swift in Sources */,
+				D93D0D742636BEF000615BA1 /* RegistrationTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,20 @@
 import Foundation
 
 
-struct Registration {
+struct Registration:CustomStringConvertible {
+    var description: String {
+        return "Registration:" + "\n" +
+            "\t" + "firstName: \(firstName)" + "\n" +
+            "\t" + "lastName: \(lastName)" + "\n" +
+            "\t" + "emailAddress: \(emailAddress)" + "\n" +
+            "\t" + "checkInDate: \(checkInDate)" + "\n" +
+            "\t" + "checkOutDate: \(checkOutDate)" + "\n" +
+            "\t" + "numberOfAdults: \(numberOfAdults)" + "\n" +
+            "\t" + "numberOfChildren: \(numberOfChildren)" + "\n" +
+            "\t" + "wifi: \(wifi)" + "\n" +
+            "\t" + "roomType: \(roomType.name)" + "\n"
+    }
+    
     var firstName: String
     var lastName: String
     var emailAddress: String

@@ -16,7 +16,43 @@ class AddRegistrationTableViewController: UITableViewController, SelectRoomTypeT
         updateRoomType()
     }
     
-
+    // change mode and provide the return adress in array
+    var isEditingMode = false
+    var returnEditedFormTo: Int? {
+        didSet {
+            if !isEditingMode {
+                returnEditedFormTo = nil
+            }
+        }
+    }
+    
+    init?(coder: NSCoder, registration: Registration?) {
+        super.init(coder: coder)
+        if let registration = registration {
+            print(registration)
+            DispatchQueue.global(qos: .userInitiated).async {
+                while self.firstNameTextField == nil && self.secondNameTextField == nil && self.emailTextField == nil &&
+                    self.checkInDatePicker == nil && self.checkOutDatePicker == nil &&
+                    self.numberOfAdultsStepper == nil && self.numberOfChildrenStepper == nil && self.wifiSwitch == nil {
+                        // dummy while cycle
+                }
+                self.roomType                      = registration.roomType
+                self.firstNameTextField.text       = registration.firstName
+                self.secondNameTextField.text      = registration.lastName
+                self.emailTextField.text           = registration.emailAddress
+                self.checkInDatePicker.date        = registration.checkInDate
+                self.checkOutDatePicker.date       = registration.checkOutDate
+                self.numberOfAdultsStepper.value   = Double(registration.numberOfAdults)
+                self.numberOfChildrenStepper.value = Double(registration.numberOfChildren)
+                self.wifiSwitch.isOn               = registration.wifi
+            }
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var secondNameTextField: UITextField!
@@ -36,6 +72,7 @@ class AddRegistrationTableViewController: UITableViewController, SelectRoomTypeT
     
     @IBOutlet weak var roomTypeLabel: UILabel!
     
+    /*
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         let firstName           = firstNameTextField.text ?? ""
         let secondName          = secondNameTextField.text ?? ""
@@ -58,6 +95,7 @@ class AddRegistrationTableViewController: UITableViewController, SelectRoomTypeT
         print("hasWifi: \(hasWifi)")
         print("roomChoice: \(roomChoice)")
     }
+    */
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         updateDateViews()
@@ -119,6 +157,21 @@ class AddRegistrationTableViewController: UITableViewController, SelectRoomTypeT
         didSet {
             checkOutDatePicker.isHidden = !isCheckOutDatePickerVisible
         }
+    }
+    
+    var registration: Registration? {
+        guard let roomType = self.roomType else { return nil }
+        let firstName           = firstNameTextField.text ?? ""
+        let secondName          = secondNameTextField.text ?? ""
+        let email               = emailTextField.text ?? ""
+        let checkInDate         = checkInDatePicker.date
+        let checkOutDate        = checkOutDatePicker.date
+        let numberOfAdults      = Int(numberOfAdultsStepper.value)
+        let numberOfChildren    = Int(numberOfChildrenStepper.value)
+        let hasWifi             = wifiSwitch.isOn
+        
+        return Registration(firstName: firstName, lastName: secondName, emailAddress: email, checkInDate: checkInDate, checkOutDate: checkOutDate, numberOfAdults: numberOfAdults, numberOfChildren: numberOfChildren, wifi: hasWifi, roomType: roomType)
+        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -186,5 +239,9 @@ class AddRegistrationTableViewController: UITableViewController, SelectRoomTypeT
         return selectRoomTypeTableVC
     }
     
-
+    
+    @IBAction func cancelButtonTapped(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
